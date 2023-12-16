@@ -61,7 +61,11 @@
 				uni.getStorage({
 					key: 'server',
 					success(res) {
-						that.api = res.data
+						console.log(res)
+						that.server = res.data
+					},
+					complete(res){
+						console.log(res)
 					}
 				})
 			},
@@ -83,8 +87,14 @@
 				})
 			},
 			toAsset() {
-				uni.navigateTo({
-					url: '../asset/asset'
+				let that = this;
+				uni.scanCode({
+					success(res) {
+						console.log(res.result);
+						uni.navigateTo({
+							url: '../asset/asset?asset_number=' + res.result
+						})
+					},
 				})
 			},
 			logout() {

@@ -46,7 +46,7 @@
 				uni.getStorage({
 					key: 'server',
 					success(res) {
-						that.api = res.data
+						that.server = res.data
 					}
 				})
 			},
@@ -82,7 +82,6 @@
 			},
 			getAccessToken() {
 				let that = this;
-				console.log(that.api);
 				uni.getStorage({
 					key: 'token',
 					success(res) {
@@ -99,7 +98,6 @@
 			},
 			login() {
 				let that = this;
-				console.log(that.api);
 				uni.showLoading({
 					title: '正在与服务器通信'
 				})
@@ -110,14 +108,14 @@
 						password: that.user.password,
 						device_name: "dev-device"
 					},
-					url: that.api + '/api/auth/login',
+					url: that.server + '/api/auth/login',
 					success: function(res) {
 						console.log(res);
 						if (res.statusCode == 200) {
 							that.token = res.data.token;
 							uni.setStorage({
 								key: 'token',
-								data: 'bearer ' + that.token,
+								data: 'Bearer ' + that.token,
 								success: function(res) {
 									uni.reLaunch({
 										url: 'login'
@@ -151,7 +149,8 @@
 							showCancel: false
 						})
 					},
-					complete: function() {
+					complete: function(res) {
+						console.log(res);
 						uni.hideLoading();
 					}
 				})

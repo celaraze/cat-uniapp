@@ -5,7 +5,7 @@ import uView from "uview-ui"
 Vue.use(uView)
 
 Vue.config.productionTip = false
-Vue.prototype.api = '';
+Vue.prototype.server = '';
 
 App.mpType = 'app'
 
